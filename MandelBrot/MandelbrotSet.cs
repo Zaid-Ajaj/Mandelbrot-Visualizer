@@ -16,7 +16,7 @@ namespace MandelBrot
         public double MinImaginary { get; set; } = -1.5;
         public double MaxImaginary { get; set; } = 1.5;
 
-        public bool WithStartingNumber { get; set; } = false;
+        public bool WithStartingValue { get; set; } = false;
 
 
         public Func<int, int> Red { get; set; } = n => n;
@@ -44,7 +44,7 @@ namespace MandelBrot
             Image = new Bitmap(Width, Height);
         }
 
-        public Complex ScaleToSet(int x, int y)
+        public Complex ScaleFromBitmapToComplexPlane(int x, int y)
         {
             var realRange = MaxReal - MinReal;
             var imageinaryRange = MaxImaginary - MinImaginary;
@@ -61,18 +61,20 @@ namespace MandelBrot
             var count = 0;
             while(z.Magnitude <= 2.0 && count < MaxIteration)
             {
-                if (WithStartingNumber)
+                if (WithStartingValue)
                     z = ComplexMap(z) + StartValue; // c is a different starting value -> creates julia sets
                 else
                     z = ComplexMap(z) + c; // c is standard -> creates the usual mandelbrot set!
                 count++;
             }
+            // return how many iterates
             return count;
         }
 
         public void Draw()
         {
             Image = new Bitmap(Width, Height);
+            // fast bitmap manipulation
             var bmp = new LockBitmap(Image);
             bmp.LockBits();
             Parallel.For(0, Height, y =>
@@ -80,7 +82,7 @@ namespace MandelBrot
                   Parallel.For(0, Width, x => 
                   {
                       // scale from bitmap box to the complex plane 
-                      var z = ScaleToSet(x, y);
+                      var z = ScaleFromBitmapToComplexPlane(x, y);
                       // find how many iterations n 
                       int n = IterationsToInfinity(z);
 

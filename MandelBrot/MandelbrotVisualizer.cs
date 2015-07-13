@@ -24,10 +24,10 @@ namespace MandelBrot
                 txtMaxImaginary.Text = mandelbrotSet.MaxImaginary.ToString();
                 txtReal.Text = mandelbrotSet.StartValue.Real.ToString();
                 txtImaginary.Text = mandelbrotSet.StartValue.Imaginary.ToString();
-                withParameter.Checked = mandelbrotSet.WithStartingNumber;
+                withParameter.Checked = mandelbrotSet.WithStartingValue;
             };
             mandelbrotSet.ComplexMap = z => z * z;
-            mandelbrotSet.WithStartingNumber = false;
+            mandelbrotSet.WithStartingValue = false;
             mandelbrotSet.StartValue = new Complex(-0.735, 0.175);
             mandelbrotSet.Draw();
         }
@@ -43,7 +43,7 @@ namespace MandelBrot
                 mandelbrotSet.MaxReal = double.Parse(txtMaxReal.Text);
                 mandelbrotSet.MinImaginary = double.Parse(txtMinImaginary.Text);
                 mandelbrotSet.MaxImaginary = double.Parse(txtMaxImaginary.Text);
-                mandelbrotSet.WithStartingNumber = withParameter.Checked;
+                mandelbrotSet.WithStartingValue = withParameter.Checked;
                 mandelbrotSet.StartValue = new Complex(double.Parse(txtReal.Text), double.Parse(txtImaginary.Text));
                 mandelbrotSet.Draw();
             }
@@ -77,8 +77,8 @@ namespace MandelBrot
             }
             
             var p = ScaleToBitmap(e.Location);
-            var c1 = mandelbrotSet.ScaleToSet(p.X - zoomBoxSize, p.Y - zoomBoxSize);
-            var c2 = mandelbrotSet.ScaleToSet(p.X + zoomBoxSize, p.Y + zoomBoxSize);
+            var c1 = mandelbrotSet.ScaleFromBitmapToComplexPlane(p.X - zoomBoxSize, p.Y - zoomBoxSize);
+            var c2 = mandelbrotSet.ScaleFromBitmapToComplexPlane(p.X + zoomBoxSize, p.Y + zoomBoxSize);
 
             mandelbrotSet.MinReal = c1.Real;
             mandelbrotSet.MaxReal = c2.Real;
@@ -97,7 +97,7 @@ namespace MandelBrot
             mandelbrotSet.MaxImaginary = 1.5;
             mandelbrotSet.MinReal = -2.0;
             mandelbrotSet.MaxReal = 1.0;
-            mandelbrotSet.WithStartingNumber = false;
+            mandelbrotSet.WithStartingValue = false;
             mandelbrotSet.Draw();
         }
     }
