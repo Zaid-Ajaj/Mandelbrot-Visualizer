@@ -79,7 +79,7 @@ namespace MandelBrot
             bmp.LockBits();
             Parallel.For(0, Height, y =>
               {
-                  Parallel.For(0, Width, x => 
+                  Parallel.For(0, Width, x =>
                   {
                       // scale from bitmap box to the complex plane 
                       var z = ScaleFromBitmapToComplexPlane(x, y);
@@ -97,12 +97,12 @@ namespace MandelBrot
 
                       if (green > 255) green = 255;
                       else if (green < 0) green = 0;
-                
+
                       if (blue > 255) blue = 255;
                       else if (blue < 0) blue = 0;
 
                       // draw point
-                      bmp.SetPixel(x,y, Color.FromArgb(red, green, blue));
+                      bmp.SetPixel(x, y, Color.FromArgb(red, green, blue));
                   });
               });
             bmp.UnlockBits();

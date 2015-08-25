@@ -31,9 +31,8 @@ namespace MandelBrot
             mandelbrotSet.StartValue = new Complex(-0.735, 0.175);
             mandelbrotSet.Draw();
         }
-        
 
-        private void btnRedraw_Click(object sender, EventArgs e)
+        void Redraw()
         {
             try
             {
@@ -49,6 +48,9 @@ namespace MandelBrot
             }
             catch { MessageBox.Show("Invalid parameter input", "Input error"); }
         }
+        
+
+        private void btnRedraw_Click (object sender, EventArgs e) => Redraw();
 
         private void btnSave_Click(object sender, EventArgs e)
         {
@@ -99,6 +101,18 @@ namespace MandelBrot
             mandelbrotSet.MaxReal = 1.0;
             mandelbrotSet.WithStartingValue = false;
             mandelbrotSet.Draw();
+        }
+
+        private void realSlider_MouseUp(object sender, EventArgs e)
+        {
+            txtReal.Text = ((double)realSlider.Value / 1000).ToString();
+            Redraw();
+        }
+
+        private void imSlider_MouseUp(object sender, EventArgs e)
+        {
+            txtImaginary.Text = ((double)imSlider.Value / 1000).ToString();
+            Redraw();
         }
     }
 }

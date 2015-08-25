@@ -1,4 +1,6 @@
-﻿namespace MandelBrot
+﻿using System.Windows.Forms;
+
+namespace MandelBrot
 {
     partial class MandelbrotVisualizer
     {
@@ -55,11 +57,15 @@
             this.txtMinReal = new System.Windows.Forms.TextBox();
             this.txtWidth = new System.Windows.Forms.TextBox();
             this.txtHeight = new System.Windows.Forms.TextBox();
+            this.realSlider = new System.Windows.Forms.TrackBar();
+            this.imSlider = new System.Windows.Forms.TrackBar();
             ((System.ComponentModel.ISupportInitialize)(this.mandelPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.realSlider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imSlider)).BeginInit();
             this.SuspendLayout();
             // 
             // mandelPictureBox
@@ -67,7 +73,7 @@
             this.mandelPictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mandelPictureBox.Location = new System.Drawing.Point(0, 0);
             this.mandelPictureBox.Name = "mandelPictureBox";
-            this.mandelPictureBox.Size = new System.Drawing.Size(627, 514);
+            this.mandelPictureBox.Size = new System.Drawing.Size(596, 634);
             this.mandelPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.mandelPictureBox.TabIndex = 0;
             this.mandelPictureBox.TabStop = false;
@@ -76,12 +82,13 @@
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.imSlider);
+            this.splitContainer1.Panel1.Controls.Add(this.realSlider);
             this.splitContainer1.Panel1.Controls.Add(this.label12);
             this.splitContainer1.Panel1.Controls.Add(this.txtZoomBoxSize);
             this.splitContainer1.Panel1.Controls.Add(this.label11);
@@ -111,14 +118,14 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.mandelPictureBox);
-            this.splitContainer1.Size = new System.Drawing.Size(796, 514);
-            this.splitContainer1.SplitterDistance = 165;
+            this.splitContainer1.Size = new System.Drawing.Size(796, 634);
+            this.splitContainer1.SplitterDistance = 196;
             this.splitContainer1.TabIndex = 1;
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(15, 380);
+            this.label12.Location = new System.Drawing.Point(22, 451);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(27, 13);
             this.label12.TabIndex = 24;
@@ -126,7 +133,7 @@
             // 
             // txtZoomBoxSize
             // 
-            this.txtZoomBoxSize.Location = new System.Drawing.Point(49, 377);
+            this.txtZoomBoxSize.Location = new System.Drawing.Point(56, 448);
             this.txtZoomBoxSize.Name = "txtZoomBoxSize";
             this.txtZoomBoxSize.Size = new System.Drawing.Size(73, 20);
             this.txtZoomBoxSize.TabIndex = 23;
@@ -134,7 +141,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(15, 350);
+            this.label11.Location = new System.Drawing.Point(22, 421);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(54, 13);
             this.label11.TabIndex = 22;
@@ -142,7 +149,7 @@
             // 
             // btnReset
             // 
-            this.btnReset.Location = new System.Drawing.Point(18, 450);
+            this.btnReset.Location = new System.Drawing.Point(18, 512);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(118, 23);
             this.btnReset.TabIndex = 21;
@@ -152,7 +159,7 @@
             // 
             // txtImaginary
             // 
-            this.txtImaginary.Location = new System.Drawing.Point(48, 312);
+            this.txtImaginary.Location = new System.Drawing.Point(48, 309);
             this.txtImaginary.Name = "txtImaginary";
             this.txtImaginary.Size = new System.Drawing.Size(73, 20);
             this.txtImaginary.TabIndex = 20;
@@ -160,7 +167,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(13, 315);
+            this.label10.Location = new System.Drawing.Point(13, 312);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(18, 13);
             this.label10.TabIndex = 19;
@@ -169,7 +176,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(13, 289);
+            this.label9.Location = new System.Drawing.Point(13, 286);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(21, 13);
             this.label9.TabIndex = 18;
@@ -177,7 +184,7 @@
             // 
             // txtReal
             // 
-            this.txtReal.Location = new System.Drawing.Point(49, 286);
+            this.txtReal.Location = new System.Drawing.Point(49, 283);
             this.txtReal.Name = "txtReal";
             this.txtReal.Size = new System.Drawing.Size(73, 20);
             this.txtReal.TabIndex = 17;
@@ -185,7 +192,7 @@
             // withParameter
             // 
             this.withParameter.AutoSize = true;
-            this.withParameter.Location = new System.Drawing.Point(15, 263);
+            this.withParameter.Location = new System.Drawing.Point(15, 260);
             this.withParameter.Name = "withParameter";
             this.withParameter.Size = new System.Drawing.Size(99, 17);
             this.withParameter.TabIndex = 16;
@@ -194,7 +201,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(18, 479);
+            this.btnSave.Location = new System.Drawing.Point(18, 541);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(118, 23);
             this.btnSave.TabIndex = 15;
@@ -204,7 +211,7 @@
             // 
             // btnRedraw
             // 
-            this.btnRedraw.Location = new System.Drawing.Point(18, 421);
+            this.btnRedraw.Location = new System.Drawing.Point(18, 483);
             this.btnRedraw.Name = "btnRedraw";
             this.btnRedraw.Size = new System.Drawing.Size(118, 23);
             this.btnRedraw.TabIndex = 14;
@@ -326,11 +333,31 @@
             this.txtHeight.Size = new System.Drawing.Size(81, 20);
             this.txtHeight.TabIndex = 0;
             // 
+            // realSlider
+            // 
+            this.realSlider.Location = new System.Drawing.Point(15, 340);
+            this.realSlider.Maximum = 1000;
+            this.realSlider.Minimum = -1000;
+            this.realSlider.Name = "realSlider";
+            this.realSlider.Size = new System.Drawing.Size(168, 45);
+            this.realSlider.TabIndex = 25;
+            this.realSlider.MouseUp += new MouseEventHandler(realSlider_MouseUp);
+            // 
+            // imSlider
+            // 
+            this.imSlider.Location = new System.Drawing.Point(16, 373);
+            this.imSlider.Maximum = 1000;
+            this.imSlider.Minimum = -1000;
+            this.imSlider.Name = "imSlider";
+            this.imSlider.Size = new System.Drawing.Size(168, 45);
+            this.imSlider.TabIndex = 26;
+            this.imSlider.MouseUp += new MouseEventHandler(imSlider_MouseUp);
+            // 
             // MandelbrotVisualizer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(796, 514);
+            this.ClientSize = new System.Drawing.Size(796, 634);
             this.Controls.Add(this.splitContainer1);
             this.Name = "MandelbrotVisualizer";
             this.Text = "Mandelbrot Set Viewer";
@@ -340,6 +367,8 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.realSlider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imSlider)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -373,6 +402,8 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox txtZoomBoxSize;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TrackBar imSlider;
+        private System.Windows.Forms.TrackBar realSlider;
     }
 }
 
