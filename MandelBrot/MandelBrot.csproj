@@ -55,7 +55,6 @@
     </Compile>
     <Compile Include="LockBitmap.cs" />
     <Compile Include="MandelbrotSet.cs" />
-    <Compile Include="BigRational.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="MandelbrotVisualizer.resx">
