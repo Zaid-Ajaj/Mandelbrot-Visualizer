@@ -48,8 +48,8 @@ namespace MandelBrot
         {
             var realRange = MaxReal - MinReal;
             var imageinaryRange = MaxImaginary - MinImaginary;
-            var re = x * (realRange / Width) + MinReal;
-            var im = y * (imageinaryRange / Height) + MinImaginary;
+            var re = realRange  * ((double)x / Width) + MinReal;
+            var im = imageinaryRange * ((double)y / Height) + MinImaginary;
             return new Complex(re, im);
         }
 
