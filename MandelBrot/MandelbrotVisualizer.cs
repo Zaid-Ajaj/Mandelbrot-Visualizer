@@ -26,7 +26,11 @@ namespace MandelBrot
                 txtImaginary.Text = mandelbrotSet.StartValue.Imaginary.ToString();
                 withParameter.Checked = mandelbrotSet.WithStartingValue;
             };
+
+            // maps: z^7 - z
+            // z*z-z
             mandelbrotSet.ComplexMap = z => z * z;
+            mandelbrotSet.MaxReal = 2.0;
             mandelbrotSet.WithStartingValue = false;
             mandelbrotSet.StartValue = new Complex(-0.735, 0.175);
             mandelbrotSet.Draw();
@@ -55,7 +59,7 @@ namespace MandelBrot
         private void btnSave_Click(object sender, EventArgs e)
         {
             var sfd = new SaveFileDialog();
-            sfd.Filter = "Bitmap Files (*.bmp)|*.bmp";
+            sfd.Filter = "Bitmap Files (*.png)|*.png";
             if (sfd.ShowDialog() == DialogResult.OK)
                 mandelPictureBox.Image.Save(sfd.FileName);
         }
