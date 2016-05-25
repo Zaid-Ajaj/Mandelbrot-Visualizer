@@ -11,10 +11,14 @@ namespace MandelBrot
         public int Height { get; set; } = 512;
         public int Width { get; set; } = 512;
 
-        public double MinReal { get; set; } = -2.0;
-        public double MaxReal { get; set; } = 1.0;
-        public double MinImaginary { get; set; } = -1.5;
-        public double MaxImaginary { get; set; } = 1.5;
+        public Window Window = new Window
+        {
+            MinReal = -2.0,
+            MaxReal = 1.0,
+            MinImaginary = -1.5,
+            MaxImaginary = 1.5
+        };
+
 
         public bool WithStartingValue { get; set; } = false;
 
@@ -29,8 +33,8 @@ namespace MandelBrot
         public Bitmap Image { get; set; }
 
 
-        public event EventHandler OnDraw;
-        
+        public event EventHandler OnDrawFinished;
+        public event EventHandler OnDrawStarted;
 
         public MandelbrotSet(int width, int height)
         {
@@ -46,10 +50,10 @@ namespace MandelBrot
 
         public Complex ScaleFromBitmapToComplexPlane(int x, int y)
         {
-            var realRange = MaxReal - MinReal;
-            var imageinaryRange = MaxImaginary - MinImaginary;
-            var re = realRange  * ((double)x / Width) + MinReal;
-            var im = imageinaryRange * ((double)y / Height) + MinImaginary;
+            var realRange = Window.MaxReal - Window.MinReal;
+            var imageinaryRange = Window.MaxImaginary - Window.MinImaginary;
+            var re = realRange  * ((double)x / Width) + Window.MinReal;
+            var im = imageinaryRange * ((double)y / Height) + Window.MinImaginary;
             return new Complex(re, im);
         }
 
@@ -73,6 +77,7 @@ namespace MandelBrot
 
         public void Draw()
         {
+            OnDrawStarted?.Invoke(this, new EventArgs());
             Image = new Bitmap(Width, Height);
             // fast bitmap manipulation
             var bmp = new LockBitmap(Image);
@@ -107,7 +112,7 @@ namespace MandelBrot
               });
             bmp.UnlockBits();
             // if not null (i.e. subscribers exist) -> invoke
-            OnDraw?.Invoke(this, new EventArgs());
+            OnDrawFinished?.Invoke(this, new EventArgs());
         }
 
 

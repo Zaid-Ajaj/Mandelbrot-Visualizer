@@ -32,9 +32,9 @@ namespace MandelBrot
         {
             this.mandelPictureBox = new System.Windows.Forms.PictureBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.label12 = new System.Windows.Forms.Label();
-            this.txtZoomBoxSize = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
+            this.btnDraw = new System.Windows.Forms.Button();
+            this.imSlider = new System.Windows.Forms.TrackBar();
+            this.realSlider = new System.Windows.Forms.TrackBar();
             this.btnReset = new System.Windows.Forms.Button();
             this.txtImaginary = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
@@ -42,7 +42,7 @@ namespace MandelBrot
             this.txtReal = new System.Windows.Forms.TextBox();
             this.withParameter = new System.Windows.Forms.CheckBox();
             this.btnSave = new System.Windows.Forms.Button();
-            this.btnRedraw = new System.Windows.Forms.Button();
+            this.btnBack = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -57,15 +57,14 @@ namespace MandelBrot
             this.txtMinReal = new System.Windows.Forms.TextBox();
             this.txtWidth = new System.Windows.Forms.TextBox();
             this.txtHeight = new System.Windows.Forms.TextBox();
-            this.realSlider = new System.Windows.Forms.TrackBar();
-            this.imSlider = new System.Windows.Forms.TrackBar();
+            this.lblTime = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.mandelPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.realSlider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imSlider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.realSlider)).BeginInit();
             this.SuspendLayout();
             // 
             // mandelPictureBox
@@ -77,21 +76,20 @@ namespace MandelBrot
             this.mandelPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.mandelPictureBox.TabIndex = 0;
             this.mandelPictureBox.TabStop = false;
-            this.mandelPictureBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.mandelPictureBox_MouseClick);
             // 
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.lblTime);
+            this.splitContainer1.Panel1.Controls.Add(this.btnDraw);
             this.splitContainer1.Panel1.Controls.Add(this.imSlider);
             this.splitContainer1.Panel1.Controls.Add(this.realSlider);
-            this.splitContainer1.Panel1.Controls.Add(this.label12);
-            this.splitContainer1.Panel1.Controls.Add(this.txtZoomBoxSize);
-            this.splitContainer1.Panel1.Controls.Add(this.label11);
             this.splitContainer1.Panel1.Controls.Add(this.btnReset);
             this.splitContainer1.Panel1.Controls.Add(this.txtImaginary);
             this.splitContainer1.Panel1.Controls.Add(this.label10);
@@ -99,7 +97,7 @@ namespace MandelBrot
             this.splitContainer1.Panel1.Controls.Add(this.txtReal);
             this.splitContainer1.Panel1.Controls.Add(this.withParameter);
             this.splitContainer1.Panel1.Controls.Add(this.btnSave);
-            this.splitContainer1.Panel1.Controls.Add(this.btnRedraw);
+            this.splitContainer1.Panel1.Controls.Add(this.btnBack);
             this.splitContainer1.Panel1.Controls.Add(this.label6);
             this.splitContainer1.Panel1.Controls.Add(this.label7);
             this.splitContainer1.Panel1.Controls.Add(this.label8);
@@ -122,30 +120,34 @@ namespace MandelBrot
             this.splitContainer1.SplitterDistance = 196;
             this.splitContainer1.TabIndex = 1;
             // 
-            // label12
+            // btnDraw
             // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(22, 451);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(27, 13);
-            this.label12.TabIndex = 24;
-            this.label12.Text = "Size";
+            this.btnDraw.Location = new System.Drawing.Point(18, 483);
+            this.btnDraw.Name = "btnDraw";
+            this.btnDraw.Size = new System.Drawing.Size(118, 23);
+            this.btnDraw.TabIndex = 27;
+            this.btnDraw.Text = "Draw";
+            this.btnDraw.UseVisualStyleBackColor = true;
             // 
-            // txtZoomBoxSize
+            // imSlider
             // 
-            this.txtZoomBoxSize.Location = new System.Drawing.Point(56, 448);
-            this.txtZoomBoxSize.Name = "txtZoomBoxSize";
-            this.txtZoomBoxSize.Size = new System.Drawing.Size(73, 20);
-            this.txtZoomBoxSize.TabIndex = 23;
+            this.imSlider.Location = new System.Drawing.Point(16, 373);
+            this.imSlider.Maximum = 1000;
+            this.imSlider.Minimum = -1000;
+            this.imSlider.Name = "imSlider";
+            this.imSlider.Size = new System.Drawing.Size(168, 45);
+            this.imSlider.TabIndex = 26;
+            this.imSlider.MouseUp += new System.Windows.Forms.MouseEventHandler(this.imSlider_MouseUp);
             // 
-            // label11
+            // realSlider
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(22, 421);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(54, 13);
-            this.label11.TabIndex = 22;
-            this.label11.Text = "Zoom box";
+            this.realSlider.Location = new System.Drawing.Point(15, 340);
+            this.realSlider.Maximum = 1000;
+            this.realSlider.Minimum = -1000;
+            this.realSlider.Name = "realSlider";
+            this.realSlider.Size = new System.Drawing.Size(168, 45);
+            this.realSlider.TabIndex = 25;
+            this.realSlider.MouseUp += new System.Windows.Forms.MouseEventHandler(this.realSlider_MouseUp);
             // 
             // btnReset
             // 
@@ -155,7 +157,6 @@ namespace MandelBrot
             this.btnReset.TabIndex = 21;
             this.btnReset.Text = "Reset";
             this.btnReset.UseVisualStyleBackColor = true;
-            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
             // 
             // txtImaginary
             // 
@@ -207,17 +208,15 @@ namespace MandelBrot
             this.btnSave.TabIndex = 15;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // btnRedraw
+            // btnBack
             // 
-            this.btnRedraw.Location = new System.Drawing.Point(18, 483);
-            this.btnRedraw.Name = "btnRedraw";
-            this.btnRedraw.Size = new System.Drawing.Size(118, 23);
-            this.btnRedraw.TabIndex = 14;
-            this.btnRedraw.Text = "Redraw";
-            this.btnRedraw.UseVisualStyleBackColor = true;
-            this.btnRedraw.Click += new System.EventHandler(this.btnRedraw_Click);
+            this.btnBack.Location = new System.Drawing.Point(18, 454);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.Size = new System.Drawing.Size(118, 23);
+            this.btnBack.TabIndex = 14;
+            this.btnBack.Text = "Go back";
+            this.btnBack.UseVisualStyleBackColor = true;
             // 
             // label6
             // 
@@ -333,25 +332,14 @@ namespace MandelBrot
             this.txtHeight.Size = new System.Drawing.Size(81, 20);
             this.txtHeight.TabIndex = 0;
             // 
-            // realSlider
+            // lblTime
             // 
-            this.realSlider.Location = new System.Drawing.Point(15, 340);
-            this.realSlider.Maximum = 1000;
-            this.realSlider.Minimum = -1000;
-            this.realSlider.Name = "realSlider";
-            this.realSlider.Size = new System.Drawing.Size(168, 45);
-            this.realSlider.TabIndex = 25;
-            this.realSlider.MouseUp += new MouseEventHandler(realSlider_MouseUp);
-            // 
-            // imSlider
-            // 
-            this.imSlider.Location = new System.Drawing.Point(16, 373);
-            this.imSlider.Maximum = 1000;
-            this.imSlider.Minimum = -1000;
-            this.imSlider.Name = "imSlider";
-            this.imSlider.Size = new System.Drawing.Size(168, 45);
-            this.imSlider.TabIndex = 26;
-            this.imSlider.MouseUp += new MouseEventHandler(imSlider_MouseUp);
+            this.lblTime.AutoSize = true;
+            this.lblTime.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTime.Location = new System.Drawing.Point(11, 606);
+            this.lblTime.Name = "lblTime";
+            this.lblTime.Size = new System.Drawing.Size(0, 19);
+            this.lblTime.TabIndex = 28;
             // 
             // MandelbrotVisualizer
             // 
@@ -367,8 +355,8 @@ namespace MandelBrot
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.realSlider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imSlider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.realSlider)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -391,7 +379,7 @@ namespace MandelBrot
         private System.Windows.Forms.TextBox txtMinReal;
         private System.Windows.Forms.TextBox txtWidth;
         private System.Windows.Forms.TextBox txtHeight;
-        private System.Windows.Forms.Button btnRedraw;
+        private System.Windows.Forms.Button btnBack;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.TextBox txtImaginary;
         private System.Windows.Forms.Label label10;
@@ -399,11 +387,10 @@ namespace MandelBrot
         private System.Windows.Forms.TextBox txtReal;
         private System.Windows.Forms.CheckBox withParameter;
         private System.Windows.Forms.Button btnReset;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.TextBox txtZoomBoxSize;
-        private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TrackBar imSlider;
         private System.Windows.Forms.TrackBar realSlider;
+        private Button btnDraw;
+        private Label lblTime;
     }
 }
 
