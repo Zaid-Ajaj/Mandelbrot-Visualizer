@@ -33,8 +33,8 @@ namespace MandelBrot
         public Bitmap Image { get; set; }
 
 
-        public event EventHandler OnDrawFinished;
-        public event EventHandler OnDrawStarted;
+        public event EventHandler<EventArgs> OnDrawFinished;
+        public event EventHandler<EventArgs> OnDrawStarted;
 
         public MandelbrotSet(int width, int height)
         {
@@ -83,35 +83,35 @@ namespace MandelBrot
             var bmp = new LockBitmap(Image);
             bmp.LockBits();
             Parallel.For(0, Height, y =>
-              {
-                  Parallel.For(0, Width, x =>
-                  {
-                      // scale from bitmap box to the complex plane 
-                      var z = ScaleFromBitmapToComplexPlane(x, y);
-                      // find how many iterations n 
-                      int n = IterationsToInfinity(z);
-
-                      // transform n to get different coloring
-                      var red = Red(n);
-                      var green = Green(n);
-                      var blue = Blue(n);
-
-                      // normalize the red, green and blue values to be in [0,255]
-                      if (red > 255) red = 255;
-                      else if (red < 0) red = 0;
-
-                      if (green > 255) green = 255;
-                      else if (green < 0) green = 0;
-
-                      if (blue > 255) blue = 255;
-                      else if (blue < 0) blue = 0;
-
-                      // draw point
-                      bmp.SetPixel(x, y, Color.FromArgb(red, green, blue));
-                  });
-              });
+            {
+                Parallel.For(0, Width, x =>
+                {
+                    // scale from bitmap box to the complex plane 
+                    var z = ScaleFromBitmapToComplexPlane(x, y);
+                    // find how many iterations n 
+                    int n = IterationsToInfinity(z);
+           
+                    // transform n to get different coloring
+                    var red = Red(n);
+                    var green = Green(n);
+                    var blue = Blue(n);
+           
+                    // normalize the red, green and blue values to be in [0,255]
+                    if (red > 255) red = 255;
+                    else if (red < 0) red = 0;
+           
+                    if (green > 255) green = 255;
+                    else if (green < 0) green = 0;
+           
+                    if (blue > 255) blue = 255;
+                    else if (blue < 0) blue = 0;
+           
+                    // draw point
+                    bmp.SetPixel(x, y, Color.FromArgb(red, green, blue));
+                });
+            });
             bmp.UnlockBits();
-            // if not null (i.e. subscribers exist) -> invoke
+            // if not null (i.e. subscribers list is not empty exist) -> invoke
             OnDrawFinished?.Invoke(this, new EventArgs());
         }
 
