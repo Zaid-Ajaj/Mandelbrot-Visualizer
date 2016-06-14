@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MandelBrot
+namespace Mandelbrot
 {
     public struct Window
     {

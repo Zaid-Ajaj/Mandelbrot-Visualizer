@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace MandelBrot
+namespace Mandelbrot
 {
     partial class MandelbrotVisualizer
     {
@@ -32,6 +32,9 @@ namespace MandelBrot
         {
             this.mandelPictureBox = new System.Windows.Forms.PictureBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.chboxSequential = new System.Windows.Forms.CheckBox();
+            this.lblStrategy = new System.Windows.Forms.Label();
+            this.lblTime = new System.Windows.Forms.Label();
             this.btnDraw = new System.Windows.Forms.Button();
             this.imSlider = new System.Windows.Forms.TrackBar();
             this.realSlider = new System.Windows.Forms.TrackBar();
@@ -57,7 +60,6 @@ namespace MandelBrot
             this.txtMinReal = new System.Windows.Forms.TextBox();
             this.txtWidth = new System.Windows.Forms.TextBox();
             this.txtHeight = new System.Windows.Forms.TextBox();
-            this.lblTime = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.mandelPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -86,6 +88,8 @@ namespace MandelBrot
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.chboxSequential);
+            this.splitContainer1.Panel1.Controls.Add(this.lblStrategy);
             this.splitContainer1.Panel1.Controls.Add(this.lblTime);
             this.splitContainer1.Panel1.Controls.Add(this.btnDraw);
             this.splitContainer1.Panel1.Controls.Add(this.imSlider);
@@ -119,6 +123,37 @@ namespace MandelBrot
             this.splitContainer1.Size = new System.Drawing.Size(796, 634);
             this.splitContainer1.SplitterDistance = 196;
             this.splitContainer1.TabIndex = 1;
+            // 
+            // chboxSequential
+            // 
+            this.chboxSequential.AutoSize = true;
+            this.chboxSequential.Checked = true;
+            this.chboxSequential.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chboxSequential.Location = new System.Drawing.Point(18, 425);
+            this.chboxSequential.Name = "chboxSequential";
+            this.chboxSequential.Size = new System.Drawing.Size(76, 17);
+            this.chboxSequential.TabIndex = 30;
+            this.chboxSequential.Text = "Sequential";
+            this.chboxSequential.UseVisualStyleBackColor = true;
+            this.chboxSequential.CheckedChanged += new System.EventHandler(this.chboxSequential_CheckedChanged);
+            // 
+            // lblStrategy
+            // 
+            this.lblStrategy.AutoSize = true;
+            this.lblStrategy.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStrategy.Location = new System.Drawing.Point(14, 574);
+            this.lblStrategy.Name = "lblStrategy";
+            this.lblStrategy.Size = new System.Drawing.Size(0, 19);
+            this.lblStrategy.TabIndex = 29;
+            // 
+            // lblTime
+            // 
+            this.lblTime.AutoSize = true;
+            this.lblTime.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTime.Location = new System.Drawing.Point(11, 606);
+            this.lblTime.Name = "lblTime";
+            this.lblTime.Size = new System.Drawing.Size(0, 19);
+            this.lblTime.TabIndex = 28;
             // 
             // btnDraw
             // 
@@ -332,15 +367,6 @@ namespace MandelBrot
             this.txtHeight.Size = new System.Drawing.Size(81, 20);
             this.txtHeight.TabIndex = 0;
             // 
-            // lblTime
-            // 
-            this.lblTime.AutoSize = true;
-            this.lblTime.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTime.Location = new System.Drawing.Point(11, 606);
-            this.lblTime.Name = "lblTime";
-            this.lblTime.Size = new System.Drawing.Size(0, 19);
-            this.lblTime.TabIndex = 28;
-            // 
             // MandelbrotVisualizer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -391,6 +417,8 @@ namespace MandelBrot
         private System.Windows.Forms.TrackBar realSlider;
         private Button btnDraw;
         private Label lblTime;
+        private Label lblStrategy;
+        private CheckBox chboxSequential;
     }
 }
 

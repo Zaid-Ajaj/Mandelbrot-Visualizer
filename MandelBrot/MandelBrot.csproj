@@ -47,6 +47,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DrawStrategy.cs" />
+    <Compile Include="ImageDrawnArgs.cs" />
     <Compile Include="Window.cs" />
     <Compile Include="MandelbrotVisualizer.cs">
       <SubType>Form</SubType>

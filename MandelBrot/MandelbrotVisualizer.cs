@@ -6,24 +6,23 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace MandelBrot
+namespace Mandelbrot
 {
     public partial class MandelbrotVisualizer : Form
     {
         MandelbrotSet mandelbrotSet;
         Stack<Window> fractalWindows = new Stack<Window>();
-        Stopwatch stopwatch = new Stopwatch();
 
         public MandelbrotVisualizer()
         {
             InitializeComponent();
             mandelbrotSet = new MandelbrotSet(512, 512);
-            mandelbrotSet.OnDrawStarted += (sender, args) => stopwatch.Restart();
+            mandelbrotSet.DrawStrategy = DrawStrategy.Sequential;
             mandelbrotSet.OnDrawFinished += (sender, args) =>
             {
-                stopwatch.Stop();
-                lblTime.Text = $"Took {stopwatch.ElapsedMilliseconds / 1000.0} s";
-                mandelPictureBox.Image = mandelbrotSet.Image;
+                lblTime.Text = $"Took {args.Elapsed.Milliseconds / 1000.0} s";
+                lblStrategy.Text = $"Strategy: {args.StrategyUsed}";
+                mandelPictureBox.Image = args.Result;
                 txtHeight.Text = mandelbrotSet.Height.ToString();
                 txtWidth.Text = mandelbrotSet.Width.ToString();
                 txtMinReal.Text = mandelbrotSet.Window.MinReal.ToString();
@@ -68,8 +67,6 @@ namespace MandelBrot
 
             };
 
-            btnDraw.Click += (sender, obj) => Redraw();
-
             mandelPictureBox.MouseClick += (sender, e) =>
             {
                 fractalWindows.Push(mandelbrotSet.Window);
@@ -84,8 +81,8 @@ namespace MandelBrot
 
                 mandelbrotSet.Window.MinImaginary = c1.Imaginary;
                 mandelbrotSet.Window.MaxImaginary = c2.Imaginary;
-                
-                mandelbrotSet.Draw();
+
+                Redraw();
             };
 
             // maps: z^7 - z
@@ -109,10 +106,6 @@ namespace MandelBrot
             {
                 mandelbrotSet.Height = int.Parse(txtHeight.Text);
                 mandelbrotSet.Width = int.Parse(txtWidth.Text);
-                mandelbrotSet.Window.MinReal = double.Parse(txtMinReal.Text);
-                mandelbrotSet.Window.MaxReal = double.Parse(txtMaxReal.Text);
-                mandelbrotSet.Window.MinImaginary = double.Parse(txtMinImaginary.Text);
-                mandelbrotSet.Window.MaxImaginary = double.Parse(txtMaxImaginary.Text);
                 mandelbrotSet.WithStartingValue = withParameter.Checked;
                 mandelbrotSet.StartValue = new Complex(double.Parse(txtReal.Text), double.Parse(txtImaginary.Text));
                 mandelbrotSet.Draw();
@@ -133,6 +126,14 @@ namespace MandelBrot
         {
             txtImaginary.Text = ((double)imSlider.Value / 1000).ToString();
             Redraw();
+        }
+
+        private void chboxSequential_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chboxSequential.Checked)
+                mandelbrotSet.DrawStrategy = DrawStrategy.Sequential;
+            else
+                mandelbrotSet.DrawStrategy = DrawStrategy.Parallel;
         }
     }
 }
